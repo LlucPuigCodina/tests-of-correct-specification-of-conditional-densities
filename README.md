@@ -62,7 +62,7 @@ value.
 
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
-Correct Specification of the Conditional Distribution
+Correct Specification Tests of the Conditional Distribution
 </caption>
 <thead>
 <tr>
