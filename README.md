@@ -10,6 +10,10 @@ implemented to assess the correct specification of rolling window
 conditional distribution forecasts out of sample, one and multiple steps
 ahead.
 
+Aplications to Financial Risk Management
+----
+Expected shortfall is the measure at the forefront of Basel III. The accuracy of expected shortfall depends on the accuracy of the predicted distributions, their left tail in fact. Therefore we might want to backtest that the left tail of the predictive distributions is well specified. Unlike Diebold (1998) the test is joint, not pointwise, and is robust to serial correlation of the probability integral transforms (multi-setep-ahead forecasts).
+
 Test
 ----
 
