@@ -10,10 +10,6 @@ implemented to assess the correct specification of rolling window
 conditional distribution forecasts out of sample, one and multiple steps
 ahead.
 
-Aplications to Financial Risk Management
-----
-Expected shortfall is the risk measure at the forefront of Basel III. The accuracy of expected shortfall depends on the accuracy of the predicted distributions, their left tail in fact. Therefore we might want to backtest that the left tail of the predictive distributions is well specified. Unlike Diebold (1998) the test is joint, not pointwise, and is robust to serial correlation of the probability integral transforms (multi-step-ahead forecasts).
-
 Test
 ----
 
@@ -34,16 +30,16 @@ value.
 
     source("RStest.R", echo = FALSE)
 
-    pits_quarter <- read_csv("data_quarter.csv", col_types = cols(X1 = col_skip()))
-    pits_year <- read_csv("data_year.csv", col_types = cols(X1 = col_skip()))
+    data_quarter <- read_csv("data_quarter.csv", col_types = cols(X1 = col_skip()))
+    data_year <- read_csv("data_year.csv", col_types = cols(X1 = col_skip()))
 
-    test_quarterly_GDP_and_NFCI <- RStest(pits_quarter$GDP_and_NFCI, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = "one")
+    test_quarterly_GDP_and_NFCI <- RStest(data_quarter$GDP_and_NFCI, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = "one")
       
-    test_quarterly_only_GDP <- RStest(pits_quarter$only_GDP, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = "one")
+    test_quarterly_only_GDP <- RStest(data_quarter$only_GDP, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = "one")
       
-    test_year_GDP_and_NFCI <- RStest(pits_year$GDP_and_NFCI, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = "multiple", l = 12)
+    test_year_GDP_and_NFCI <- RStest(data_year$GDP_and_NFCI, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = "multiple", l = 12)
       
-    test_year_only_GDP <- RStest(pits_year$only_GDP, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = "multiple", l = 12)
+    test_year_only_GDP <- RStest(data_year$only_GDP, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = "multiple", l = 12)
 
     RStestresults <- data.frame(c(test_quarterly_GDP_and_NFCI$KS_P, test_quarterly_only_GDP$KS_P,
                                   test_year_GDP_and_NFCI$KS_P, test_year_only_GDP$KS_P),
@@ -66,7 +62,7 @@ value.
 
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
-Correct Specification Tests of the Conditional Distribution
+Correct Specification of the Conditional Distribution
 </caption>
 <thead>
 <tr>

@@ -40,8 +40,8 @@ RStest <- function(pits, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step, l)
   if (missing(l)){
     l = floor(P^(1/3))
   }
-  if (!is.numeric(l) || l < 0){
-    stop("Bootstrap block length, l, must be numeric and positive.")
+  if (!is.numeric(l) || l < 1){
+    stop("Boostrap block length, l, must be numeric and larger than 1.")
   }
 
   #Statistics
