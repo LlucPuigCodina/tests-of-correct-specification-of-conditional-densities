@@ -7,161 +7,82 @@ Codina.
 
 Two tests, a Kolmogorov-Smirnov test and an Cràmer-von Mises test, are
 implemented to assess the correct specification of rolling window
-conditional distribution forecasts out of sample, one and multiple steps
+conditional distribution out-of-sample forecasts, one and multiple steps
 ahead.
+
+Aplications to Financial Risk Management
+----------------------------------------
+
+Expected shortfall is the risk measure at the forefront of Basel III.
+The accuracy of expected shortfall depends on the accuracy of the
+predicted distributions, their left tail in fact. Therefore we might
+want to backtest that the left tail of the predictive distributions is
+well specified. Unlike Diebold (1998) the test is joint, not pointwise,
+and is robust to serial correlation of the probability integral
+transforms (multi-step-ahead forecasts).
 
 Test
 ----
 
-An aplication of one of the tests, the Kolmogorov-Smirnov test, can be
-found in [Adrian, Boyarchenko and Giannone
-(2019)](https://www.aeaweb.org/articles?id=10.1257/aer.20161923). Here I
-reproduce those results and also show the Càmer-von Mises test results.
-The null hypothesis of the conditional distribution being correctly
-specified can be rejected if the statistic is larger than the critical
-value.
+### Input
 
-    rm(list=ls())
+The test is implemented in the function `RStest` which has several
+arguments:
 
-    set.seed(1234)
+-   `pits`: A vector containing the probability integral transforms
+    (predicted CDF evaluated at it’s realization), thus it’s elements
+    are numeric and in \[0, 1\]. Elements are oredered from *t* = *R* to
+    *T*, the out-of-sample set.
 
-    library(readr)
-    library(kableExtra)
+-   `alpha`: significance level, the probability of rejecting the null
+    hypothesis when it is true.
 
-    source("RStest.R", echo = FALSE)
+-   `nSim`: number of simulations in the calculation of the critical
+    values.
 
-    data_quarter <- read_csv("data_quarter.csv", col_types = cols(X1 = col_skip()))
-    data_year <- read_csv("data_year.csv", col_types = cols(X1 = col_skip()))
+-   `rmin`: lower quantile to be tested. Must be in \[0,1\] and &gt;
+    than `rmax`.
 
-    test_quarterly_GDP_and_NFCI <- RStest(data_quarter$GDP_and_NFCI, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = "one")
-      
-    test_quarterly_only_GDP <- RStest(data_quarter$only_GDP, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = "one")
-      
-    test_year_GDP_and_NFCI <- RStest(data_year$GDP_and_NFCI, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = "multiple", l = 12)
-      
-    test_year_only_GDP <- RStest(data_year$only_GDP, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step = "multiple", l = 12)
+-   `rmax`: upper quantile to be tested. Must be in \[0,1\] and &lt;
+    than `rmin`.
 
-    RStestresults <- data.frame(c(test_quarterly_GDP_and_NFCI$KS_P, test_quarterly_only_GDP$KS_P,
-                                  test_year_GDP_and_NFCI$KS_P, test_year_only_GDP$KS_P),
-                                c(test_quarterly_GDP_and_NFCI$KS_alpha, test_quarterly_only_GDP$KS_alpha,
-                                  test_year_GDP_and_NFCI$KS_alpha, test_year_only_GDP$KS_alpha),
-                                c(test_quarterly_GDP_and_NFCI$CvM_P, test_quarterly_only_GDP$CvM_P,
-                                  test_year_GDP_and_NFCI$CvM_P, test_year_only_GDP$CvM_P),
-                                c(test_quarterly_GDP_and_NFCI$CvM_alpha, test_quarterly_only_GDP$CvM_alpha,
-                                  test_year_GDP_and_NFCI$CvM_alpha, test_year_only_GDP$CvM_alpha))
+-   `step`: must be a string, either or . The first option implements
+    the second boostrap procedure described in Theorem 2 of Rossi and
+    Sekhposyan (2019) to compute critical values, while the second
+    option implements the procedure described in Theorem 4 of Rossi and
+    Sekhposyan (2019), which is robust to autocorrelation of the
+    probability integral transforms (recomended for multi-step-ahead
+    forecasts).
 
-    rownames(RStestresults) <-c("One-Quarter-Ahead GDP and NFCI", "One-Quarter-Ahead only GDP",
-                                "One-Year-Ahead GDP and NFCI", "One-Year-Ahead only GDP")
+-   `l`: Bootstrap block length. Default is set to
+    \[*P*<sup>1/3</sup>\], where \[ ⋅ \] denotes the floor operator, as
+    in all Pannels, except G, of Table 3 in Rossi and Sekhposyan (2019).
+    Although there is no guidance on how to choose `l`, results seem to
+    be robust to alternative lengths. Boostrap block lemgth must be
+    numeric and larger than 1.
 
-    colnames(RStestresults) <-c("Statistic", "Critical Value at 95%", 
-                                "Statistic", "Critical Value at 95%")
+### Output
 
-    kable(RStestresults, longtable = T, booktabs = T, caption = "Correct Specification of the Conditional Distribution") %>%
-      add_header_above(c(" ", "Kolmogorov-Smirnov Test" = 2, "Cràmer-von Mises Test" = 2)) %>%
-      kable_styling(latex_options = c("repeat_header"))
+The test outputs a list with several objects:
 
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<caption>
-Correct Specification of the Conditional Distribution
-</caption>
-<thead>
-<tr>
-<th style="border-bottom:hidden" colspan="1">
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-Kolmogorov-Smirnov Test
+-   `KS_P`: Kolmogorov-Smirnov statistic.
 
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-Cràmer-von Mises Test
+-   `KS_alpha`: Kolmogorov-Smirnov critical value.
 
-</th>
-</tr>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-Statistic
-</th>
-<th style="text-align:right;">
-Critical Value at 95%
-</th>
-<th style="text-align:right;">
-Statistic
-</th>
-<th style="text-align:right;">
-Critical Value at 95%
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-One-Quarter-Ahead GDP and NFCI
-</td>
-<td style="text-align:right;">
-1.901234
-</td>
-<td style="text-align:right;">
-1.373776
-</td>
-<td style="text-align:right;">
-1.6606653
-</td>
-<td style="text-align:right;">
-0.4845432
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-One-Quarter-Ahead only GDP
-</td>
-<td style="text-align:right;">
-1.582624
-</td>
-<td style="text-align:right;">
-1.281321
-</td>
-<td style="text-align:right;">
-0.8015819
-</td>
-<td style="text-align:right;">
-0.4201134
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-One-Year-Ahead GDP and NFCI
-</td>
-<td style="text-align:right;">
-2.719001
-</td>
-<td style="text-align:right;">
-2.173060
-</td>
-<td style="text-align:right;">
-3.1087441
-</td>
-<td style="text-align:right;">
-1.7921749
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-One-Year-Ahead only GDP
-</td>
-<td style="text-align:right;">
-1.606533
-</td>
-<td style="text-align:right;">
-2.253907
-</td>
-<td style="text-align:right;">
-0.7424817
-</td>
-<td style="text-align:right;">
-1.6629933
-</td>
-</tr>
-</tbody>
-</table>
+-   `CvM_P`: Cràmer-von Mises statistic.
+
+-   `CvM_alpha`: Cràmer-von Mises critical value.
+
+The null hypothesis of the correct specification of the conditional
+distribution can be rejected if the statistic is larger than the
+critical value.
+
+Note
+----
+
+The test is set up such that one can test the null for
+*r* ∈ \[*r**m**i**n*, *r**m**a**x*\] but not for say
+*r* ∈ {\[0, 0.25\] ∩ \[0.75, 1\]}. The code is written such that it can
+be easily modified. The point where modifications should be introduced
+for this type of test are where `v` is subsettetd, line 76 for the
+one-step-ahead forecasts and line 108 for multiple-step-ahead forecasts.
