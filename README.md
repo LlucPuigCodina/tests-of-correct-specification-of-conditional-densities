@@ -81,7 +81,7 @@ Note
 ----
 
 The test is set up such that one can test the null for
-*r* ∈ \[*r**m**i**n*, *r**m**a**x*\] but not for say
+*r* ∈ \[rmin, rmax\] but not for say the left and the right tail,
 *r* ∈ {\[0, 0.25\] ∩ \[0.75, 1\]}. The code is written such that it can
 be easily modified. The point where modifications should be introduced
 for this type of test are where `v` is subsettetd, line 76 for the
