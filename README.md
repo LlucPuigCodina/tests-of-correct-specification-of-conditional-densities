@@ -59,7 +59,8 @@ arguments:
     in all Pannels, except G, of Table 3 in Rossi and Sekhposyan (2019).
     Although there is no guidance on how to choose `l`, results seem to
     be robust to alternative lengths. Boostrap block length must be
-    numeric and larger than 1.
+    numeric and larger than 1. Specifying the boostrap block length is
+    unecessary for one-step-ahead forecasts.
 
 ### Output
 
