@@ -87,3 +87,10 @@ The test is set up such that one can test the null for
 be easily modified. The point where modifications should be introduced
 for this type of test are where `v` is subsettetd, line 76 for the
 one-step-ahead forecasts and line 108 for multiple-step-ahead forecasts.
+
+References
+----------
+
+Rossi, Barbara, and Tatevik Sekhposyan. “Alternative tests for correct
+specification of conditional predictive densities.” *Journal of
+Econometrics* 208.2 (2019): 638-657.
