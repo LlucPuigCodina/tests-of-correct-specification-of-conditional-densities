@@ -57,10 +57,9 @@ arguments:
 -   `l`: Bootstrap block length. Default is set to
     \[*P*<sup>1/3</sup>\], where \[ ⋅ \] denotes the floor operator, as
     in all Pannels, except G, of Table 3 in Rossi and Sekhposyan (2019).
-    Although there is no guidance on how to choose `l`, results seem to
-    be robust to alternative lengths. Boostrap block length must be
-    numeric and larger than 1. Specifying the boostrap block length is
-    unecessary for one-step-ahead forecasts.
+    Boostrap block length must be a positive integer. Specifying the boostrap block length is
+    unecessary for one-step-ahead forecasts. Although there is no guidance on how to choose `l`, results seem to
+    be robust to alternative lengths.
 
 ### Output
 
