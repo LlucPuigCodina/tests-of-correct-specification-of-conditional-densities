@@ -38,10 +38,10 @@ arguments:
     hypothesis when it is true.
 
 -   `nSim`: number of simulations in the calculation of the critical
-    values. Number up to three decimals.
+    values. Integer
 
 -   `rmin`: lower quantile to be tested. Must be in \[0,1\] and &gt;
-    than `rmax`.
+    than `rmax`. Number up to three decimals.
 
 -   `rmax`: upper quantile to be tested. Must be in \[0,1\] and &lt;
     than `rmin`. Number up to three decimals.
