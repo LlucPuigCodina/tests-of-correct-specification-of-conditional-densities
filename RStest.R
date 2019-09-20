@@ -21,7 +21,7 @@ RStest <- function(pits, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step, l)
     stop("alpha must be a number in [0, 1].")
   }
   
-  if (!is.numeric(nSim) || nSim < 1){
+  if (!is.integer(nSim) || nSim < 1){
     stop("nSim must be numeric and larger than 1.")
   }
   
@@ -40,7 +40,7 @@ RStest <- function(pits, alpha = 0.05, nSim = 1000, rmin = 0, rmax = 1, step, l)
   if (missing(l)){
     l = floor(P^(1/3))
   }
-  if (!is.numeric(l) || l < 1){
+  if (!is.integer(l) || l < 1){
     stop("Boostrap block length, l, must be numeric and larger than 1.")
   }
 

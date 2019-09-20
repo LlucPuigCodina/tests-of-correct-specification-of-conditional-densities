@@ -38,13 +38,13 @@ arguments:
     hypothesis when it is true.
 
 -   `nSim`: number of simulations in the calculation of the critical
-    values. Integer
+    values. Must be a positive integer.
 
 -   `rmin`: lower quantile to be tested. Must be in \[0,1\] and &gt;
-    than `rmax`. Number up to three decimals.
+    than `rmax`.
 
 -   `rmax`: upper quantile to be tested. Must be in \[0,1\] and &lt;
-    than `rmin`. Number up to three decimals.
+    than `rmin`.
 
 -   `step`: must be a string, either or . The first option implements
     the second boostrap procedure described in Theorem 2 of Rossi and
@@ -57,8 +57,9 @@ arguments:
 -   `l`: Bootstrap block length. Default is set to
     \[*P*<sup>1/3</sup>\], where \[ ⋅ \] denotes the floor operator, as
     in all Pannels, except G, of Table 3 in Rossi and Sekhposyan (2019).
-    Boostrap block length must be a positive integer. Specifying the boostrap block length is
-    unecessary for one-step-ahead forecasts. Although there is no guidance on how to choose `l`, results seem to
+    Boostrap block length must be a positive integer. Specifying the
+    boostrap block length is unecessary for one-step-ahead forecasts.
+    Although there is no guidance on how to choose `l`, results seem to
     be robust to alternative lengths.
 
 ### Output

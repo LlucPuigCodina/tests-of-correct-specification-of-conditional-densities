@@ -24,7 +24,7 @@ The test is implemented in the function `RStest` which has several arguments:
 
 - `alpha`: significance level, the probability of rejecting the null hypothesis when it is true.
 
-- `nSim`: number of simulations in the calculation of the critical values.
+- `nSim`: number of simulations in the calculation of the critical values. Must be a positive integer.
 
 - `rmin`: lower quantile to be tested. Must be in [0,1] and > than `rmax`.
 
@@ -32,7 +32,7 @@ The test is implemented in the function `RStest` which has several arguments:
 
 - `step`: must be a string, either `r print('one')` or `r print('multiple')`. The first option implements the second boostrap procedure described in Theorem 2 of Rossi and Sekhposyan (2019) to compute critical values, while the second option implements the procedure described in Theorem 4 of Rossi and Sekhposyan (2019), which is robust to autocorrelation of the probability integral transforms (recomended for multi-step-ahead forecasts).
 
-- `l`: Bootstrap block length. Default is set to $[P^{1/3}]$, where $[\cdot]$ denotes the floor operator, as in all Pannels, except G, of Table 3 in Rossi and Sekhposyan (2019). Although there is no guidance on how to choose `l`, results seem to be robust to alternative lengths. Boostrap block length must be numeric and larger than 1. Specifying the boostrap block length is unecessary for one-step-ahead forecasts.
+- `l`: Bootstrap block length. Default is set to $[P^{1/3}]$, where $[\cdot]$ denotes the floor operator, as in all Pannels, except G, of Table 3 in Rossi and Sekhposyan (2019). Boostrap block length must be a positive integer. Specifying the boostrap block length is unecessary for one-step-ahead forecasts. Although there is no guidance on how to choose `l`, results seem to be robust to alternative lengths.
 
 ### Output
 
