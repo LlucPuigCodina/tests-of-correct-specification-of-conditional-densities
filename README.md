@@ -38,13 +38,13 @@ arguments:
     hypothesis when it is true.
 
 -   `nSim`: number of simulations in the calculation of the critical
-    values.
+    values. Number up to three decimals.
 
 -   `rmin`: lower quantile to be tested. Must be in \[0,1\] and &gt;
     than `rmax`.
 
 -   `rmax`: upper quantile to be tested. Must be in \[0,1\] and &lt;
-    than `rmin`.
+    than `rmin`. Number up to three decimals.
 
 -   `step`: must be a string, either or . The first option implements
     the second boostrap procedure described in Theorem 2 of Rossi and
