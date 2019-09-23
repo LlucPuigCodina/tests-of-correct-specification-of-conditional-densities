@@ -13,7 +13,7 @@ ahead.
 Aplications to Financial Risk Management
 ----------------------------------------
 
-Expected shortfall is the risk measure at the forefront of Basel III.
+Aside from a general aplication to forecasting it also has a particular aplication to financial risk management. Expected shortfall is the risk measure at the forefront of Basel III.
 The accuracy of expected shortfall depends on the accuracy of the
 predicted distributions, their left tail in fact. Therefore we might
 want to backtest that the left tail of the predictive distributions is
