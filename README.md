@@ -46,7 +46,7 @@ arguments:
 -   `rmax`: upper quantile to be tested. Must be in \[0,1\] and &lt;
     than `rmin`.
 
--   `step`: must be a string, either or . The first option implements
+-   `step`: must be a string, either "one" or "multiple". The first option implements
     the second boostrap procedure described in Theorem 2 of Rossi and
     Sekhposyan (2019) to compute critical values, while the second
     option implements the procedure described in Theorem 4 of Rossi and
