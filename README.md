@@ -2,7 +2,7 @@ Tests-for-correct-specification-of-conditional-densities
 ========================================================
 
 `R` implementation of [Rossi and Sekhposyan
-(2019)](https://doi.org/10.1016/j.jeconom.2018.07.008) by Lluc Puig
+(2019)](https://doi.org/10.1016/j.jeconom.2018.07.008) at *Journal of Econometrics* by Lluc Puig
 Codina.
 
 Two tests, a Kolmogorov-Smirnov test and an Cràmer-von Mises test, are
